@@ -25,7 +25,7 @@
 }
 
 body {
-  background: var(--bg-url) no-repeat top center/ cover;
+  background: var(--bg-url) no-repeat top center/ cover fixed;
   transition: all 0.5s;
   width: 100%;
   margin: 0 auto;
@@ -37,8 +37,9 @@ body * {
 }
 
 #container {
-  width: 360px;
-  margin: 56px auto 0px; /*topo lados baixo; caso queria 4 é topo direita baixo esquerda; caso duas é topo e baixo e direita esquerda.*/
+  width: 100%;
+  max-width: 588px;
+  margin: 56px auto 0px;
   padding: 24px;
 }
 
@@ -54,7 +55,7 @@ body * {
 #profile p {
   font-weight: 500;
   line-height: 24px;
-  margin-top: 8px; /*dá pra adicionar um gap também*/
+  margin-top: 8px;
 }
 
 #switch {
@@ -70,20 +71,24 @@ body * {
   border: 0;
   border-radius: 50%;
   background: white var(--switch-bg-url) no-repeat center;
-  cursor: pointer;
 
   position: absolute;
   z-index: 1;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  transition: left 0.5s;
+
+  animation: slide-back 0.5s;
 }
 
 .light #switch button {
   background: black var(--switch-bg-url) no-repeat center;
+  animation: slide-in 0.5s forwards;
+}
+
+#switch button:hover{
+  outline: 8px solid var(--highlight-color);
   cursor: pointer;
-  left: calc(100% - 32px);
 }
 
 #switch span {
@@ -152,4 +157,32 @@ footer {
   font-weight: 400;
   padding: 24px 0;
   font-size: 14px;
+}
+
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(./assets/bg-desktop.jpg);
+  }
+
+  .light {
+    --bg-url: url(./assets/bg-desktop-light.jpg);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes slide-back {
+  from {
+    left: 50%;
+  }
+  to {
+    left:0;
+  }
 }
